@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import moment from "moment";
 import { AuthContext } from "./authContext";
 
 const Comment = () => {
@@ -31,10 +30,7 @@ const Comment = () => {
                 post_id: postId,
                 users_id: currentUser,
                 comment: newComment,
-                created: moment(Date.now()).format("DD-MM-YYYY"),
             });
-
-            // Add the newly posted comment to the state
             setComments((prevComments) => [response.data, ...prevComments]);
         } catch (err) {
             console.log(err);
@@ -46,58 +42,13 @@ const Comment = () => {
             <span className="head">Comments</span>
             <CommentInput handlePost={handlePost} />
             <div className="commentDisplay">
-                {comments.map((comment) => (
-                    <CommentItem key={comment.id} comment={comment} />
-                ))}
-            </div>
-        </div>
-    );
-};
-
-const CommentItem = ({ comment }) => {
-    const [isReplying, setisReplying] = useState(false);
-    const [replyText, setReplyText] = useState("");
-
-    const handlePost = async () => {
-        try {
-            const response = await axios.post(`./comments/`, {
-                post_id: comment.post_id,
-                users_id: comment.users_id,
-                comment: replyText,
-                created: moment(Date.now()).format("DD-MM-YYYY"),
-            });
-
-            // You can add the newly posted comment to the state, but no nesting
-            // setComments((prev) => [response.data, ...prev]);
-
-            // Clear the reply text
-            setReplyText("");
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    return (
+    {comments.map((comment) => (
         <div className="comments" key={comment.id}>
-            <span>{comment.username}</span>
+            <span className="username">{comment.username}</span>
             <span>{comment.comment}</span>
-            {isReplying ? (
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Write a reply..."
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                    />
-                    <button className="button" onClick={handlePost}>
-                        Post Reply
-                    </button>
-                </div>
-            ) : (
-                <button className="button" onClick={() => setisReplying(true)}>
-                    Reply
-                </button>
-            )}
+        </div>
+    ))}
+</div>
         </div>
     );
 };
