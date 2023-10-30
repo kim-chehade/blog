@@ -22,7 +22,7 @@ export const addComment = (req, res) => {
 
   const values = [
     req.body.post_id,
-    userInfo.id,
+    req.body.user_id,
     req.body.comment,
     req.body.created
   ];

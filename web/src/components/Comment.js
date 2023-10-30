@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "./authContext";
+import moment from "moment";
 
 const Comment = () => {
     const [comments, setComments] = useState([]);
+    const [commentBody, setCommentBody] = useState(""); // State for the new comment
     const location = useLocation();
     const postId = location.pathname.split("/")[2];
     const { currentUser } = useContext(AuthContext);
@@ -22,16 +24,19 @@ const Comment = () => {
         fetchData();
     }, [postId]);
 
-    const handlePost = async (e, newComment) => {
+    const handlePost = async (e) => {
         e.preventDefault();
 
         try {
+            console.log(postId)
             const response = await axios.post(`/comments/`, {
                 post_id: postId,
                 users_id: currentUser,
-                comment: newComment,
+                comment: commentBody,
+                created: moment(Date.now()).format("YYYY-MM-DD"),
             });
             setComments((prevComments) => [response.data, ...prevComments]);
+            setCommentBody(""); 
         } catch (err) {
             console.log(err);
         }
@@ -40,41 +45,26 @@ const Comment = () => {
     return (
         <div className="comment">
             <span className="head">Comments</span>
-            <CommentInput handlePost={handlePost} />
+            <div>
+                <form className="comments">
+                    <input
+                        type="text"
+                        placeholder="Give us your feedback..."
+                        className="text"
+                        value={commentBody}
+                        onChange={(e) => setCommentBody(e.target.value)}
+                    />
+                    <button onClick={handlePost} className="button">Comment</button>
+                </form>
+            </div>
             <div className="commentDisplay">
-    {comments.map((comment) => (
-        <div className="comments" key={comment.id}>
-            <span className="username">{comment.username}</span>
-            <span>{comment.comment}</span>
-        </div>
-    ))}
-</div>
-        </div>
-    );
-};
-
-const CommentInput = ({ handlePost }) => {
-    const [commentBody, setCommentBody] = useState("");
-
-    const handlePosting = (e) => {
-        e.preventDefault(); // Prevent form submission
-
-        handlePost(e, commentBody); // Pass the event and commentBody to the handlePost function
-        setCommentBody("");
-    };
-
-    return (
-        <div>
-            <form className="comments" onSubmit={handlePosting}>
-                <input
-                    type="text"
-                    placeholder="Give us your feedback..."
-                    className="text"
-                    value={commentBody}
-                    onChange={(e) => setCommentBody(e.target.value)}
-                />
-                <button type="submit" className="button">Comment</button>
-            </form>
+                {comments.map((comment) => (
+                    <div className="comments" key={comment.id}>
+                        <span className="username">{comment.username}</span>
+                        <span>{comment.comment}</span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
