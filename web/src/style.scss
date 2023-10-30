@@ -201,8 +201,8 @@ $lightBlue : #c6ecfe;
 
             &::after {
               content: "";
-              width: 100%;
-              height: 100%;
+              width: 75%;
+              height: 75%;
               background-image: linear-gradient(to right, #daeaf1, #c6dce4, #ffe6e6, #f2d1d1);
               position: absolute;
               top: 20px;
@@ -211,8 +211,8 @@ $lightBlue : #c6ecfe;
             }
 
             img {
-              width: 100%;
-              height: 100%;
+              width: 75%;
+              height: 75%;
               object-fit: cover;
             }
           }
@@ -234,7 +234,7 @@ $lightBlue : #c6ecfe;
 
             button {
               width: max-content;
-              padding: 10px 20px;
+              padding: 7.5px 15px;
               cursor: pointer;
               background-color: #667eea;
               border: none;
@@ -243,7 +243,7 @@ $lightBlue : #c6ecfe;
               &:hover {
                 border: 1px solid #667eea;
                 background-color: #fff;
-                padding: 9px 20px;
+                padding: 6px 12.3px;
               }
 
               .btn {
