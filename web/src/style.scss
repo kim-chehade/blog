@@ -35,7 +35,7 @@ $lightBlue : #c6ecfe;
       background-color: #fff;
       border-radius: 45px;
       gap: 20px;
-      width: 250px;
+      // width: 250px;
 
       h1 {
         font-size: 25px;
@@ -132,7 +132,7 @@ $lightBlue : #c6ecfe;
 
           .create {
             background-color: $lightBlue;
-            width: 120px;
+            width: 125px;
             height: 40px;
             border-radius: 25px;
             display: flex;
@@ -142,7 +142,7 @@ $lightBlue : #c6ecfe;
             
 
             &:hover {
-              width: 118px;
+              width: 125px;
               height: 38px;
               font-weight: bold;
               background-color: #fff;
