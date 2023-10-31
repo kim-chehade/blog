@@ -6,7 +6,7 @@ import moment from "moment";
 
 const Comment = () => {
     const [comments, setComments] = useState([]);
-    const [commentBody, setCommentBody] = useState(""); // State for the new comment
+    const [commentBody, setCommentBody] = useState("");
     const location = useLocation();
     const postId = location.pathname.split("/")[2];
     const { currentUser } = useContext(AuthContext);
@@ -28,15 +28,16 @@ const Comment = () => {
         e.preventDefault();
 
         try {
-            console.log(postId)
+            console.log(postId);
             const response = await axios.post(`/comments/`, {
                 post_id: postId,
-                users_id: currentUser,
+                users_id: currentUser.id,
                 comment: commentBody,
                 created: moment(Date.now()).format("YYYY-MM-DD"),
             });
             setComments((prevComments) => [response.data, ...prevComments]);
-            setCommentBody(""); 
+            setCommentBody("");
+            window.location.reload();
         } catch (err) {
             console.log(err);
         }
@@ -54,16 +55,22 @@ const Comment = () => {
                         value={commentBody}
                         onChange={(e) => setCommentBody(e.target.value)}
                     />
-                    <button onClick={handlePost} className="button">Comment</button>
+                    <button onClick={handlePost} className="button">
+                        Comment
+                    </button>
                 </form>
             </div>
             <div className="commentDisplay">
-                {comments.map((comment) => (
-                    <div className="comments" key={comment.id}>
-                        <span className="username">{comment.username}</span>
-                        <span>{comment.comment}</span>
-                    </div>
-                ))}
+                {comments.length > 0 ? (
+                    comments.map((comment, index) => (
+                        <div className="comments" key={index}>
+                            <span className="username">{comment.username}</span>
+                            <span>{comment.comment}</span>
+                        </div>
+                    ))
+                ) : (
+                    <p>No comments available.</p>
+                )}
             </div>
         </div>
     );

@@ -16,15 +16,14 @@ export const getComments = (req, res) => {
 
 
 export const addComment = (req, res) => {
-
   const query =
-    "INSERT INTO comments(`post_id`, `users_id`, `comment`, `created`) VALUES (?)";
+    "INSERT INTO comments (`post_id`, `users_id`, `comment`, `created`) VALUES (?, ?, ?, ?)";
 
   const values = [
     req.body.post_id,
-    req.body.user_id,
+    req.body.users_id,
     req.body.comment,
-    req.body.created
+    req.body.created,
   ];
 
   db.query(query, values, (err, data) => {
@@ -34,5 +33,4 @@ export const addComment = (req, res) => {
     }
     return res.status(200).json({ message: "Comment has been posted." });
   });
-
 };
