@@ -51,10 +51,9 @@ const Blog = () => {
           <div>
             <img src={`../upload/${post.image}`} alt="" />
             <div className="user">
-              {post.userImage && <img src={post.userImage} alt="" />}
               <div className="info">
                 <span>{post.username}</span>
-                <p>Posted {moment(post.data).fromNow()}</p>
+                <p>Posted {moment(post.date).fromNow()}</p>
               </div>
               {currentUser && currentUser.username === post.username && (
                 <div className="edit">

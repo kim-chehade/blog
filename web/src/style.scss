@@ -101,7 +101,8 @@ $lightBlue : #c6ecfe;
 
     //Header Navbar
     .navbar {
-      margin-right: 75px;
+      margin-top: -25px;
+      padding-right: 75px;
       background-image: linear-gradient(to right, #daeaf1, #c6dce4, #ffe6e6, #f2d1d1);
 
       .container {
@@ -120,6 +121,7 @@ $lightBlue : #c6ecfe;
           gap: 10px;
 
           h6 {
+            margin-top: 8px;
             font-size: 16px;
             font-weight: 300;
           }
@@ -141,8 +143,8 @@ $lightBlue : #c6ecfe;
             display: flex;
             align-items: center;
             justify-content: center;
-            
-            
+
+
 
             &:hover {
               width: 125px;
@@ -151,10 +153,11 @@ $lightBlue : #c6ecfe;
               background-color: #fff;
               border: 1px solid #8e37d7;
             }
-            .btn{
+
+            .btn {
               text-decoration: none;
-              color:#8e37d7;
-            
+              color: #8e37d7;
+
 
             }
           }
@@ -188,27 +191,28 @@ $lightBlue : #c6ecfe;
         margin-right: 75px;
         align-items: center;
       }
-      
+
       .search-input {
         border: 1px solid #ccc;
         border-radius: 4px;
         padding: 8px;
         width: 200px;
+        margin-top: 5px;
       }
-      
+
       .search-button {
         background: none;
         border: none;
         padding: 8px;
         cursor: pointer;
       }
-      
+
       .posts {
         margin-top: 50px;
         display: flex;
         flex-direction: column;
         gap: 150px;
-        
+
 
         .post {
           display: flex;
@@ -297,15 +301,17 @@ $lightBlue : #c6ecfe;
         flex: 5;
 
         img {
-          width: 100%;
-          height: 300px;
-          object-fit: cover;
+          margin-left: 250px;
+          width: 50%;
+          height: 50%;
+          object-fit: contain;
         }
 
         .user {
           display: flex;
           align-items: center;
           gap: 10px;
+          justify-content: center;
 
           .info {
             margin-top: 15px;
@@ -507,18 +513,27 @@ $lightBlue : #c6ecfe;
         padding-left: 10px;
       }
 
-      .commentDisplay {
+      .commentsDisplay {
         margin-top: 20px;
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 5px;
+        border-bottom: 1px solid #d0cfcf91;
+        border-radius: 5px;
+        padding-left: 10px;
+        padding-bottom: 5px;
 
+        .displayComment{
+          gap: 10px;
+        }
+        .username{
+          font-weight: bold;
+          margin-right: 10px;
+        }
         .texts {
           border: 1px solid #333;
           color: #000;
-          border-radius: 5px;
-          padding-left: 3px;
 
         }
       }
@@ -526,18 +541,15 @@ $lightBlue : #c6ecfe;
 
     .comments {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       color: #000;
-      border: 1px solid #333;
+      border-bottom: 1px solid #d0cfcf91;
       margin-top: 5px;
-      border-radius: 5px;
       padding: 5px;
-      // background-color: #820ef57e;
+      justify-content: space-between;
+      border-radius: 5px;
 
-      .nestedComments {
-        display: flex;
-        flex-direction: column;
-      }
+   
 
       .button {
         width: max-content;

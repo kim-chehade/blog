@@ -63,8 +63,11 @@ const Comment = () => {
             <div className="commentDisplay">
                 {comments.length > 0 ? (
                     comments.map((comment, index) => (
-                        <div className="comments" key={index}>
+                        <div className="commentsDisplay" key={index}>
+                            <div className="displayComment">
                             <span className="username">{comment.username}</span>
+                            <span className="date">{moment(comment.created).format("DD-MM-YYYY")}</span>
+                            </div>
                             <span>{comment.comment}</span>
                         </div>
                     ))
