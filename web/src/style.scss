@@ -101,6 +101,9 @@ $lightBlue : #c6ecfe;
 
     //Header Navbar
     .navbar {
+      margin-right: 75px;
+      background-image: linear-gradient(to right, #daeaf1, #c6dce4, #ffe6e6, #f2d1d1);
+
       .container {
         display: flex;
         justify-content: space-between;
@@ -179,11 +182,33 @@ $lightBlue : #c6ecfe;
     //Home
 
     .home {
+      .search {
+        display: flex;
+        justify-content: end;
+        margin-right: 75px;
+        align-items: center;
+      }
+      
+      .search-input {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px;
+        width: 200px;
+      }
+      
+      .search-button {
+        background: none;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+      }
+      
       .posts {
         margin-top: 50px;
         display: flex;
         flex-direction: column;
         gap: 150px;
+        
 
         .post {
           display: flex;
