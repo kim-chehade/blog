@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import Logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./authContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () =>{
     const { currentUser, logout } = useContext(AuthContext);

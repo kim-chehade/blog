@@ -537,10 +537,9 @@ $lightBlue : #c6ecfe;
 
         }
       }
-    }
-
-    .comments {
-      display: flex;
+      
+      .comments {
+        display: flex;
       flex-direction: row;
       color: #000;
       border-bottom: 1px solid #d0cfcf91;
@@ -548,9 +547,9 @@ $lightBlue : #c6ecfe;
       padding: 5px;
       justify-content: space-between;
       border-radius: 5px;
-
-   
-
+      
+      
+      
       .button {
         width: max-content;
         padding: 1px 8px;
@@ -564,4 +563,6 @@ $lightBlue : #c6ecfe;
       }
     }
   }
+
+}
 }
