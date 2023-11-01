@@ -2,63 +2,61 @@ import React, { useContext } from "react";
 import Logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./authContext";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const Header = () =>{
-    const { currentUser, logout } = useContext(AuthContext);
-    const handleLogout = async () => {
-        try {
-          await logout(); // Call the logout function from AuthContext
-        } catch (error) {
-          // Handle any potential errors here
-          console.error("Error during logout:", error);
-        }
-      };
-        return(
-            <div className="navbar">
-            <div className="container">
-                <div className="logo">
-                    <Link to="/">
-                        <img src={Logo} alt="" />
-                    </Link>
-                </div>
-                <div className="links">
-                    <Link className="link" to="/?category=art">
-                        <h6>Art</h6>
-                        </Link>
-                    <Link className="link" to="/?category=science">
-                        <h6>Science</h6>
-                        </Link>
-                    <Link className="link" to="/?category=technology">
-                        <h6>Technology</h6>
-                        </Link>
-                    <Link className="link" to="/?category=cinema">
-                        <h6>Cinema</h6>
-                        </Link>
-                    <Link className="link" to="/?category=food">
-                        <h6>Food</h6>
-                        </Link>
-                    <Link className="link" to="/?category=others">
-                        <h6>Others</h6>
-                        </Link>
+const Header = () => {
+  const { currentUser, logout } = useContext(AuthContext);
 
-                    <span>{currentUser?.first_name}</span>
-                    {currentUser ? (
-                        <span onClick={handleLogout}>Logout</span>
-                    ) : (
-                        <Link className="link" to="/login">
-                        Login
-                        </Link>
-                    )}                    <span className="create">
-                        <Link className="btn" to="create">Create a Blog</Link>    
-                    </span>
-
-                </div>
-            </div>
-        </div>
-        )
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Error during logout:", error);
     }
+  };
 
+  return (
+    <Navbar expand="lg" bg="light">
+      <Container>
+        <div className="logo">
+          <Link to="/">
+            <img src={Logo} alt="" />
+          </Link>
+        </div>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto nav">
+            <Nav.Link href="/?category=art">Art</Nav.Link>
+            <Nav.Link href="/?category=science">Science</Nav.Link>
+            <Nav.Link href="/?category=technology">Technology</Nav.Link>
+            <Nav.Link href="/?category=cinema">Cinema</Nav.Link>
+            <Nav.Link href="/?category=food">Food</Nav.Link>
+            <Nav.Link href="/?category=others">Others</Nav.Link>
+          
+            <NavDropdown title="Account" id="basic-nav-dropdown">
+              {currentUser ? (
+                <>
+                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">  {/* Use Link component for client-side navigation */}
+                    <NavDropdown.Item>Login</NavDropdown.Item>
+                  </Link>
+                </>
+              )}
+              <Link to="/create">  {/* Use Link component for client-side navigation */}
+                <NavDropdown.Item>Create a Blog</NavDropdown.Item>
+              </Link>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
 
 export default Header;

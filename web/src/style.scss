@@ -115,53 +115,12 @@ $lightBlue : #c6ecfe;
           }
         }
 
-        .links {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          h6 {
-            margin-top: 8px;
-            font-size: 16px;
-            font-weight: 300;
-          }
-
-          span {
-            cursor: pointer;
-          }
-
-          .link {
-            color: #000;
-            text-decoration: none;
-          }
-
-          .create {
-            background-color: $lightBlue;
-            width: 125px;
-            height: 40px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-
-
-            &:hover {
-              width: 125px;
-              height: 38px;
-              font-weight: bold;
-              background-color: #fff;
-              border: 1px solid #8e37d7;
-            }
-
-            .btn {
-              text-decoration: none;
-              color: #8e37d7;
-
-
-            }
-          }
+        .nav{
+          padding-top: 10px;
         }
+        
+
+       
       }
     }
 
