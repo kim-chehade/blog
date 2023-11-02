@@ -5,16 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
-    const [posts, setPosts] = useState([]);
+    const [originalPosts, setOriginalPosts] = useState([]); // Store the original posts
+    const [displayedPosts, setDisplayedPosts] = useState([]); // Store the posts to display
     const [searchQuery, setSearchQuery] = useState('');
-    
     const category = useLocation().search;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const res = await axios.get(`/posts${category}`);
-                setPosts(res.data);
+                const data = res.data;
+                setOriginalPosts(data); // Store the original posts
+                setDisplayedPosts(data); // Set the displayed posts initially
             } catch (err) {
                 console.log("Axios Error:", err);
                 console.log("Response Data:", err.response.data);
@@ -28,13 +30,14 @@ const Home = () => {
         return doc.body.textContent;
     }
 
-    // Handle search input change
     const handleSearchInputChange = (e) => {
         setSearchQuery(e.target.value);
     }
 
-    // Filter posts based on search query
-    const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    const handleSearchButtonClick = () => {
+        const filteredPosts = originalPosts.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()));
+        setDisplayedPosts(filteredPosts); // Update the displayed posts
+    }
 
     return (
         <div className="home">
@@ -46,12 +49,12 @@ const Home = () => {
                     value={searchQuery}
                     onChange={handleSearchInputChange}
                 />
-                <button className="search-button">
+                <button className="search-button" onClick={handleSearchButtonClick}>
                     <FontAwesomeIcon icon={faSearch} />
                 </button>
             </div>
             <div className="posts">
-                {filteredPosts.map(post => (
+                {displayedPosts.map(post => (
                     <div className="post" key={post.id}>
                         <div className="image">
                             <img src={`../upload/${post.image}`} alt="Pic here" />

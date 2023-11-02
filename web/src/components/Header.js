@@ -40,17 +40,17 @@ const Header = () => {
               {currentUser ? (
                 <>
                   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                    <Link className="nav-link" to="/create">
+                        Create a Blog
+                    </Link>
                 </>
               ) : (
                 <>
-                  <Link to="/login">  {/* Use Link component for client-side navigation */}
-                    <NavDropdown.Item>Login</NavDropdown.Item>
+                  <Link className="nav-link" to="/login">
+                    Login
                   </Link>
                 </>
               )}
-              <Link to="/create">  {/* Use Link component for client-side navigation */}
-                <NavDropdown.Item>Create a Blog</NavDropdown.Item>
-              </Link>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
