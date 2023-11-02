@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
-    const [originalPosts, setOriginalPosts] = useState([]); // Store the original posts
-    const [displayedPosts, setDisplayedPosts] = useState([]); // Store the posts to display
+    const [originalPosts, setOriginalPosts] = useState([]);
+    const [displayedPosts, setDisplayedPosts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const category = useLocation().search;
 
@@ -15,8 +15,8 @@ const Home = () => {
             try {
                 const res = await axios.get(`/posts${category}`);
                 const data = res.data;
-                setOriginalPosts(data); // Store the original posts
-                setDisplayedPosts(data); // Set the displayed posts initially
+                setOriginalPosts(data);
+                setDisplayedPosts(data);
             } catch (err) {
                 console.log("Axios Error:", err);
                 console.log("Response Data:", err.response.data);
@@ -25,9 +25,10 @@ const Home = () => {
         fetchData();
     }, [category]);
 
-    const getText = (html) => {
+    const getShortenedText = (html, maxLength) => {
         const doc = new DOMParser().parseFromString(html, "text/html");
-        return doc.body.textContent;
+        const text = doc.body.textContent;
+        return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     }
 
     const handleSearchInputChange = (e) => {
@@ -36,7 +37,7 @@ const Home = () => {
 
     const handleSearchButtonClick = () => {
         const filteredPosts = originalPosts.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()));
-        setDisplayedPosts(filteredPosts); // Update the displayed posts
+        setDisplayedPosts(filteredPosts);
     }
 
     return (
@@ -63,7 +64,7 @@ const Home = () => {
                             <Link to={`/post/${post.id}`}>
                                 <h1>{post.title}</h1>
                             </Link>
-                            <p>{getText(post.description)}</p>
+                            <p>{getShortenedText(post.description, post.description.length / 4)}</p>
                             <button>
                                 <Link className="btn" to={`/post/${post.id}`}>Read More</Link>
                             </button>

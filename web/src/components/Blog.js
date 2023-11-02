@@ -20,7 +20,9 @@ const Blog = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`/posts/${postId}`);
-        setPost(res.data);
+        const postData = res.data;
+        postData.description = postData.description.replace(/\n/g, "<br>");
+        setPost(postData);
       } catch (err) {
         console.log("Axios Error:", err);
         console.log("Response Data:", err.response.data);
@@ -74,7 +76,9 @@ const Blog = () => {
               )}
             </div>
             <h1>{post.title}</h1>
-            {getText(post.description)}
+            {/* {getText(post.description)} */}
+            <div dangerouslySetInnerHTML={{ __html: post.description }} />
+
           </div>
         )}
         <Comment/>

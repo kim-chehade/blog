@@ -190,7 +190,7 @@ $lightBlue : #c6ecfe;
             &::after {
               content: "";
               width: 75%;
-              height: 75%;
+              height: 90%;
               background-image: linear-gradient(to right, #daeaf1, #c6dce4, #ffe6e6, #f2d1d1);
               position: absolute;
               top: 20px;
@@ -200,7 +200,7 @@ $lightBlue : #c6ecfe;
 
             img {
               width: 75%;
-              height: 75%;
+              height: 90%;
               object-fit: cover;
             }
           }

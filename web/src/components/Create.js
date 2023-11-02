@@ -11,6 +11,7 @@ const Create = () => {
   const [value, setValue] = useState(state?.description || "");
   const [category, setCategory] = useState(state?.category || "");
   const [file, setFile] = useState(null);
+  const [existingImage, setExistingImage] = useState(state?.image || ""); // Store the existing image URL
 
   const navigate = useNavigate();
 
@@ -27,43 +28,42 @@ const Create = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const imageURL = await upload();
+    let imageURL = existingImage; // Use the existing image URL by default
+
+    if (file) {
+      // If a new file is provided, upload it and get the URL
+      imageURL = await upload();
+    }
 
     try {
       state
         ? await axios.put(`/posts/${state.id}`, {
-          title,
-          description: value,
-          category,
-          image: file ? imageURL : "",
-        })
-        :
-        await axios.post(`/posts/`, {
-          title,
-          description: value,
-          category,
-          image: file ? imageURL : "",
-          created: moment(Date.now()).format("DD-MM-YYY"),
-        });
+            title,
+            description: value,
+            category,
+            image: imageURL, // Use the new or existing image URL
+          })
+        : await axios.post(`/posts/`, {
+            title,
+            description: value,
+            category,
+            image: imageURL, // Use the new or existing image URL
+            created: moment(Date.now()).format("DD-MM-YYYY"), // Corrected date format
+          });
       navigate("/");
     } catch (err) {
       console.log(err);
     }
   };
-  const getText = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent;
-  }
 
   return (
     <div className="newblog">
       <div className="content">
-
         <input
           type="text"
           value={title}
           placeholder="Title"
-          onChange={(e) => getText(setTitle(e.target.value))}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <div className="editorContainer">
           <ReactQuill className="edit" theme="snow" value={value} onChange={setValue} />
@@ -78,7 +78,6 @@ const Create = () => {
           <span>
             <b>Visibility: </b> Public
           </span>
-
           <div className="buttons">
             <input
               type="file"
@@ -92,31 +91,80 @@ const Create = () => {
         <div className="item">
           <h1>Category</h1>
           <div className="category">
-            <input type="radio" checked={category === "art"} name="cat" id="art" value="art" onChange={e => setCategory(e.target.value)} />
+            <input
+              type="radio"
+              checked={category === "art"}
+              name="cat"
+              id="art"
+              value="art"
+              onChange={(e) => setCategory(e.target.value)}
+            />
             <label htmlFor="art">Art</label>
           </div>
           <div className="category">
-            <input type="radio" checked={category === "science"} name="cat" id="science" value="science" onChange={e => setCategory(e.target.value)} />
+            <input
+              type="radio"
+              checked={category === "science"}
+              name="cat"
+              id="science"
+              value="science"
+              onChange={(e) => setCategory(e.target.value)}
+            />
             <label htmlFor="science">Science</label>
           </div>
           <div className="category">
-            <input type="radio" checked={category === "technology"} name="cat" id="technology" value="technology" onChange={e => setCategory(e.target.value)} />
+            <input
+              type="radio"
+              checked={category === "technology"}
+              name="cat"
+              id="technology"
+              value="technology"
+              onChange={(e) => setCategory(e.target.value)}
+            />
             <label htmlFor="technology">Technology</label>
           </div>
           <div className="category">
-            <input type="radio" checked={category === "cinema"} name="cat" id="cinema" value="cinema" onChange={e => setCategory(e.target.value)} />
+            <input
+              type="radio"
+              checked={category === "cinema"}
+              name="cat"
+              id="cinema"
+              value="cinema"
+              onChange={(e) => setCategory(e.target.value)}
+            />
             <label htmlFor="cinema">Cinema</label>
           </div>
           <div className="category">
-            <input type="radio" checked={category === "design"} name="cat" id="design" value="design" onChange={e => setCategory(e.target.value)} />
+            <input
+              type="radio"
+              checked={category === "design"}
+              name="cat"
+              id="design"
+              value="design"
+              onChange={(e) => setCategory(e.target.value)}
+            />
             <label htmlFor="design">Design</label>
           </div>
           <div className="category">
-            <input type="radio" checked={category === "food"} name="cat" id="food" value="food" onChange={e => setCategory(e.target.value)} />
+            <input
+              type="radio"
+              checked={category === "food"}
+              name="cat"
+              id="food"
+              value="food"
+              onChange={(e) => setCategory(e.target.value)}
+            />
             <label htmlFor="food">Food</label>
           </div>
           <div className="category">
-            <input type="radio" checked={category === "others"} name="cat" id="others" value="others" onChange={e => setCategory(e.target.value)} />
+            <input
+              type="radio"
+              checked={category === "others"}
+              name="cat"
+              id="others"
+              value="others"
+              onChange={(e) => setCategory(e.target.value)}
+            />
             <label htmlFor="others">Others</label>
           </div>
         </div>
