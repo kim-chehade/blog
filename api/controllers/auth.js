@@ -4,13 +4,11 @@ import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   
-    // Check if user exists or not
     const queryCheck = "SELECT * FROM users WHERE email = ? OR username = ?";
     db.query(queryCheck, [req.body.email, req.body.username], (err,data)=>{
         if(err) return res.json(err);
         else if(data.length) return res.status(409).json("User already exists!");
 
-        //Hashing password for new users
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
@@ -27,13 +25,11 @@ export const register = async (req, res) => {
 };
 
 export const login = (req, res) => {
-    //user exists or not
     const queryCheck = "SELECT * FROM users WHERE username = ?";
     db.query(queryCheck, [req.body.username], (err,data)=>{
         if(err) return res.json(err);
         else if(data.length === 0) return res.status(404).json("User not found!");
         
-        //Checking Password
         const isPasswordCorrect = bcrypt.compareSync(req.body.password, data[0].password);
         
         if(!isPasswordCorrect) return res.status(400).json("Wrong Username or Password!");

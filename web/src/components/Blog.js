@@ -76,7 +76,6 @@ const Blog = () => {
               )}
             </div>
             <h1>{post.title}</h1>
-            {/* {getText(post.description)} */}
             <div dangerouslySetInnerHTML={{ __html: post.description }} />
 
           </div>

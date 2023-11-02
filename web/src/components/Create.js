@@ -11,7 +11,7 @@ const Create = () => {
   const [value, setValue] = useState(state?.description || "");
   const [category, setCategory] = useState(state?.category || "");
   const [file, setFile] = useState(null);
-  const [existingImage, setExistingImage] = useState(state?.image || ""); // Store the existing image URL
+  const [existingImage, setExistingImage] = useState(state?.image || ""); 
 
   const navigate = useNavigate();
 
@@ -28,10 +28,9 @@ const Create = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let imageURL = existingImage; // Use the existing image URL by default
+    let imageURL = existingImage; 
 
     if (file) {
-      // If a new file is provided, upload it and get the URL
       imageURL = await upload();
     }
 
@@ -41,14 +40,14 @@ const Create = () => {
             title,
             description: value,
             category,
-            image: imageURL, // Use the new or existing image URL
+            image: imageURL,
           })
         : await axios.post(`/posts/`, {
             title,
             description: value,
             category,
-            image: imageURL, // Use the new or existing image URL
-            created: moment(Date.now()).format("DD-MM-YYYY"), // Corrected date format
+            image: imageURL, 
+            created: moment(Date.now()).format("DD-MM-YYYY"), 
           });
       navigate("/");
     } catch (err) {
