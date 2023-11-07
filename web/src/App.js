@@ -8,10 +8,10 @@ import {
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 import Create from "./components/Create";
 import Blog from "./components/Blog";
 import Home from "./components/Home";
-import Header from "./components/Header";
 import "./style.scss";
 
 
